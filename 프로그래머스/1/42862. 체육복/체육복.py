@@ -1,33 +1,17 @@
-# list의 in, remove => set으로 변경해 O(1)로 변경
-
+# 빌려준 사람 구하지 않고 바로 잃어버린 사람을 제거하는 방법
 def solution(n, lost, reserve):
-    # 중복 없으므로 set으로 변환
-    lost_set = set(lost)
-    reserve_set =set(reserve)
+    lost_set = set(lost) - set(reserve)
+    reserve_set =set(reserve) - set(lost)
     
-    # 도난+여벌(자기꺼만 쓸 수 있음)
-    intersection = lost_set & reserve_set
-    lost_set -= intersection
-    reserve_set -= intersection
-    
-    # 체육복 빌리기
-    answer = 0
-    for student in sorted(lost_set):
-        if student-1 in reserve_set:
-            reserve_set.remove(student-1)
-            answer += 1
-        elif student+1 in reserve_set:
-            reserve_set.remove(student+1)
-            answer += 1
-        else:
-            continue # 못빌림
+    for r in sorted(reserve_set):
+        if r-1 in lost_set:
+            lost_set.remove(r-1)
+        elif r+1 in lost_set:
+            lost_set.remove(r+1)
             
-    return n-len(lost_set)+answer
+    return n-len(lost_set)
 
-
-
-
-
+# list의 in, remove => set으로 변경해 O(1)로 변경
 # 처음 풀이
 # def solution(n, lost, reserve):
 
