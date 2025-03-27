@@ -1,6 +1,4 @@
 def solution(s):
     # or는 둘중 하나를 만족하면 True
-    if s.isdigit() and len(s) in [4,6]:
-        return True
-    else:
-        return False
+    # and는 둘 다 만족해야만 True
+    return s.isdigit() and len(s) in [4,6]
